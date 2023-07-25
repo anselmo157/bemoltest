@@ -1,3 +1,4 @@
+import 'package:bemoltest/ui/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -55,6 +56,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+          const ProductItem(),
         ],
       ),
     );
