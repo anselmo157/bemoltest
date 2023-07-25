@@ -14,7 +14,10 @@ class HomePage extends StatelessWidget {
         elevation: 0.0,
         title: Text(
           'Products',
-          style: TextStyle(color: Theme.of(context).primaryColor),
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         actions: [
           IconButton(
