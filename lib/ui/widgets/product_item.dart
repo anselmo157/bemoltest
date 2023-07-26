@@ -1,7 +1,13 @@
+import 'package:bemoltest/model/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
+  final ProductModel product;
+
+  const ProductItem({
+    required this.product,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
