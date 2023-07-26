@@ -1,3 +1,4 @@
+import 'package:bemoltest/model/product_model.dart';
 import 'package:bemoltest/ui/widgets/product_item.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +76,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          // const ProductItem(),
+          ProductItem(product: ProductModel.fromMap(map)),
         ],
       ),
     );
