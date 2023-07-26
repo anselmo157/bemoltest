@@ -9,6 +9,7 @@ class ProductModel implements Model {
   final String image;
   final double rate;
   final int count;
+  final bool? isFavorite;
 
   ProductModel({
     required this.id,
@@ -19,6 +20,7 @@ class ProductModel implements Model {
     required this.image,
     required this.rate,
     required this.count,
+    this.isFavorite,
   });
 
   ProductModel.fromMap(Map<String, dynamic> map)
@@ -30,7 +32,8 @@ class ProductModel implements Model {
         category = map['category'] is String ? map['category'] as String : '',
         image = map['image'] is String ? map['image'] as String : '',
         rate = map['rate'] is double ? map['rate'] as double : 0.0,
-        count = map['count'] is int ? map['count'] as int : 0;
+        count = map['count'] is int ? map['count'] as int : 0,
+        isFavorite = map['isFavorite'] is bool ? map['isFavorite'] : null;
 
   @override
   Map<String, dynamic> toMap() {
@@ -43,11 +46,12 @@ class ProductModel implements Model {
       'image': image,
       'rate': rate,
       'count': count,
+      'isFavorite': isFavorite,
     };
   }
 
   @override
   String toString() {
-    return 'ProductModel {id: $id, title: $title, price: $price, description: $description, category: $category, image: $image, rate: $rate, count: $count}';
+    return 'ProductModel {id: $id, title: $title, price: $price, description: $description, category: $category, image: $image, rate: $rate, count: $count, isFavorite: $isFavorite}';
   }
 }
