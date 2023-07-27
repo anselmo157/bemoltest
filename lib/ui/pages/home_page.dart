@@ -77,7 +77,10 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          ProductItem(product: ProductModel.fromMap(map)),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, '/details'),
+            child: ProductItem(product: ProductModel.fromMap(map)),
+          ),
         ],
       ),
     );
