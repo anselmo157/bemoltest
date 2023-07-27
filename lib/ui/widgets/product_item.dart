@@ -16,7 +16,6 @@ class ProductItem extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      color: Colors.red,
       height: size.height * 0.225,
       width: size.width,
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.025),
