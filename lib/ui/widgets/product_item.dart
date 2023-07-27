@@ -65,6 +65,7 @@ class ProductItem extends StatelessWidget {
                         Text(
                           ' ${product.rate} (${product.count} reviews)',
                           style: TextStyle(
+                            fontSize: 14,
                             color: Theme.of(context)
                                 .primaryColor
                                 .withOpacity(0.65),
