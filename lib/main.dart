@@ -1,3 +1,4 @@
+import 'package:bemoltest/model/product_model.dart';
 import 'package:bemoltest/ui/pages/details_page.dart';
 import 'package:bemoltest/ui/pages/favorites_page.dart';
 import 'package:bemoltest/ui/pages/home_page.dart';
@@ -24,7 +25,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
-        '/details': (context) => const DetailsPage(),
+        '/details': (context) {
+          final args = ModalRoute.of(context)?.settings.arguments as ProductModel;
+          return DetailsPage(product: args);
+        },
         '/favorites': (context) => FavoritesPage(),
       },
     );
