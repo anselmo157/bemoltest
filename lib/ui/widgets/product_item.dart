@@ -15,9 +15,11 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return SizedBox(
+    return Container(
+      color: Colors.red,
       height: size.height * 0.225,
       width: size.width,
+      padding: EdgeInsets.symmetric(horizontal: size.width * 0.025),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -25,69 +27,78 @@ class ProductItem extends StatelessWidget {
             child: Image.network(
               product.image,
               width: size.width * 0.3,
-              height: size.height * 0.16,
+              height: size.height * 0.17,
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 232,
-                child: Text(
-                  product.title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).primaryColor,
+          SizedBox(
+            width: size.width * 0.55,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 232,
+                  child: Text(
+                    product.title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 16.0),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
                 ),
-              ),
-              const SizedBox(
-                height: 8.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: Color(0xFFFFD700),
-                      ),
-                      Text(
-                        '${product.rate} (${product.count} reviews)',
-                        style: TextStyle(
-                          color:
-                              Theme.of(context).primaryColor.withOpacity(0.65),
-                          fontWeight: FontWeight.w600,
+                isFavoritePage == true
+                    ? const SizedBox(
+                        height: 8.0,
+                      )
+                    : Container(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          color: Color(0xFFFFD700),
                         ),
-                      ),
-                    ],
-                  ),
-                  isFavoritePage != true
-                      ? IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.favorite_outline,
-                              color: Colors.black),
-                          iconSize: 24,
-                        )
-                      : Container(),
-                ],
-              ),
-              const SizedBox(
-                height: 8.0,
-              ),
-              Text(
-                '\$${product.price}',
-                style: const TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFFF37A20),
-                  fontWeight: FontWeight.w600,
+                        Text(
+                          ' ${product.rate} (${product.count} reviews)',
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .primaryColor
+                                .withOpacity(0.65),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    isFavoritePage != true
+                        ? IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.favorite_outline,
+                                color: Colors.black),
+                            iconSize: 24,
+                          )
+                        : Container(),
+                  ],
                 ),
-              ),
-            ],
+                isFavoritePage == true
+                    ? const SizedBox(
+                        height: 8.0,
+                      )
+                    : Container(),
+                Text(
+                  '\$${product.price}',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Color(0xFFF37A20),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
