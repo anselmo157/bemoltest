@@ -39,9 +39,10 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              final response =
-                  await dio.get('https://fakestoreapi.com/products');
-              print(response);
+              Navigator.pushNamed(context, '/favorites');
+              // final response =
+              //     await dio.get('https://fakestoreapi.com/products');
+              // print(response);
             },
             icon: const Icon(Icons.favorite_outline, color: Colors.black),
             iconSize: 24,

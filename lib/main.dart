@@ -1,3 +1,5 @@
+import 'package:bemoltest/ui/pages/details_page.dart';
+import 'package:bemoltest/ui/pages/favorites_page.dart';
 import 'package:bemoltest/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +21,12 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF37474F),
         fontFamily: 'Poppins',
       ),
-      home: HomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(),
+        '/details': (context) => const DetailsPage(),
+        '/favorites': (context) => FavoritesPage(),
+      },
     );
   }
 }
