@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductModel product;
+  final bool? isFavoritePage;
 
   const ProductItem({
     required this.product,
+    this.isFavoritePage,
     super.key,
   });
 
@@ -13,9 +15,8 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Container(
-      height: size.height * 0.2,
-      padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
+    return SizedBox(
+      height: size.height * 0.225,
       width: size.width,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,6 +44,9 @@ class ProductItem extends StatelessWidget {
                   maxLines: 2,
                 ),
               ),
+              const SizedBox(
+                height: 8.0,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -62,19 +66,25 @@ class ProductItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon:
-                        const Icon(Icons.favorite_outline, color: Colors.black),
-                    iconSize: 24,
-                  ),
+                  isFavoritePage != true
+                      ? IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.favorite_outline,
+                              color: Colors.black),
+                          iconSize: 24,
+                        )
+                      : Container(),
                 ],
+              ),
+              const SizedBox(
+                height: 8.0,
               ),
               Text(
                 '\$${product.price}',
                 style: const TextStyle(
                   fontSize: 20,
                   color: Color(0xFFF37A20),
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],

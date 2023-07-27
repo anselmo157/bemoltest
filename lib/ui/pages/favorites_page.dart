@@ -31,10 +31,19 @@ class FavoritesPage extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back),
+          iconSize: 24.0,
+          color: Theme.of(context).primaryColor,
+        ),
       ),
       body: Column(
         children: [
-          ProductItem(product: ProductModel.fromMap(map)),
+          ProductItem(
+            product: ProductModel.fromMap(map),
+            isFavoritePage: true,
+          ),
         ],
       ),
     );
