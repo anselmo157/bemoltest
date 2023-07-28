@@ -3,7 +3,7 @@ import 'package:bemoltest/model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   final ProductModel product;
   final bool? isFavoritePage;
 
@@ -13,6 +13,11 @@ class ProductItem extends StatelessWidget {
     super.key,
   });
 
+  @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     final controller = context.read<MainController>();
@@ -27,7 +32,7 @@ class ProductItem extends StatelessWidget {
         children: [
           ClipRRect(
             child: Image.network(
-              product.image,
+              widget.product.image,
               width: size.width * 0.3,
               height: size.height * 0.17,
             ),
@@ -41,7 +46,7 @@ class ProductItem extends StatelessWidget {
                 SizedBox(
                   width: 232,
                   child: Text(
-                    product.title,
+                    widget.product.title,
                     style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Theme.of(context).primaryColor,
@@ -50,7 +55,7 @@ class ProductItem extends StatelessWidget {
                     maxLines: 2,
                   ),
                 ),
-                isFavoritePage == true
+                widget.isFavoritePage == true
                     ? const SizedBox(
                         height: 8.0,
                       )
@@ -66,7 +71,7 @@ class ProductItem extends StatelessWidget {
                           color: Color(0xFFFFD700),
                         ),
                         Text(
-                          ' ${product.rate} (${product.count} reviews)',
+                          ' ${widget.product.rate} (${widget.product.count} reviews)',
                           style: TextStyle(
                             fontSize: 14,
                             color: Theme.of(context)
@@ -77,15 +82,15 @@ class ProductItem extends StatelessWidget {
                         ),
                       ],
                     ),
-                    isFavoritePage != true
+                    widget.isFavoritePage != true
                         ? IconButton(
-                            onPressed: () {
-                              controller.changeFavoriteProducts(product);
-                            },
+                            onPressed: () => setState(() {
+                              controller.changeFavoriteProducts(widget.product);
+                            }),
                             icon: Icon(
                               Icons.favorite,
                               color: (controller.productsFavorites
-                                      .contains(product))
+                                      .contains(widget.product))
                                   ? Colors.red
                                   : Colors.grey,
                             ),
@@ -94,13 +99,13 @@ class ProductItem extends StatelessWidget {
                         : Container(),
                   ],
                 ),
-                isFavoritePage == true
+                widget.isFavoritePage == true
                     ? const SizedBox(
                         height: 8.0,
                       )
                     : Container(),
                 Text(
-                  '\$${product.price}',
+                  '\$${widget.product.price}',
                   style: const TextStyle(
                     fontSize: 20,
                     color: Color(0xFFF37A20),
