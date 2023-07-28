@@ -1,4 +1,4 @@
-import 'package:bemoltest/controller/main_controller.dart';
+import 'package:bemoltest/controllers/main_controller.dart';
 import 'package:bemoltest/model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MainController controller = Provider.of<MainController>(context);
+    final controller = context.read<MainController>();
     Size size = MediaQuery.of(context).size;
 
     return Container(
@@ -79,13 +79,12 @@ class ProductItem extends StatelessWidget {
                     ),
                     isFavoritePage != true
                         ? IconButton(
-                            onPressed: () {
-                              Provider.of<MainController>(context,
-                                      listen: false)
-                                  .changeFavorite(product);
-                            },
-                            icon: const Icon(Icons.favorite_outline,
-                                color: Colors.black),
+                            onPressed: () =>
+                                controller.changeFavoriteProducts(product),
+                            icon: const Icon(
+                              Icons.favorite_outline,
+                              color: Colors.black,
+                            ),
                             iconSize: 24,
                           )
                         : Container(),

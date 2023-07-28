@@ -1,17 +1,16 @@
-import 'package:bemoltest/controller/main_controller.dart';
-import 'package:bemoltest/model/product_model.dart';
+import 'package:bemoltest/controllers/main_controller.dart';
 import 'package:bemoltest/ui/widgets/product_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final nameSearch = TextEditingController(text: '');
 
-  final controller = MainController();
-
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<MainController>();
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(

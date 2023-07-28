@@ -1,4 +1,4 @@
-import 'package:bemoltest/controller/main_controller.dart';
+import 'package:bemoltest/controllers/main_controller.dart';
 import 'package:bemoltest/model/product_model.dart';
 import 'package:bemoltest/ui/pages/details_page.dart';
 import 'package:bemoltest/ui/pages/favorites_page.dart';
