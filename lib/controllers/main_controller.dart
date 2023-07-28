@@ -12,17 +12,10 @@ class MainController extends ChangeNotifier {
   Future<void> getProducts() async {
     final response = await dio.get('https://fakestoreapi.com/products');
 
+    products.clear();
+    
     for (int i = 0; i < response.data.length; i++) {
       products.add(ProductModel.fromMap(response.data[i]));
-    }
-  }
-
-  Future<void> getFavorites() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final List<String>? id = prefs.getStringList('favorites');
-
-    if (id != null && id.isNotEmpty) {
-      print(id);
     }
   }
 
@@ -32,5 +25,6 @@ class MainController extends ChangeNotifier {
     } else {
       productsFavorites.remove(product);
     }
+    notifyListeners();
   }
 }

@@ -79,11 +79,15 @@ class ProductItem extends StatelessWidget {
                     ),
                     isFavoritePage != true
                         ? IconButton(
-                            onPressed: () =>
-                                controller.changeFavoriteProducts(product),
-                            icon: const Icon(
-                              Icons.favorite_outline,
-                              color: Colors.black,
+                            onPressed: () {
+                              controller.changeFavoriteProducts(product);
+                            },
+                            icon: Icon(
+                              Icons.favorite,
+                              color: (controller.productsFavorites
+                                      .contains(product))
+                                  ? Colors.red
+                                  : Colors.grey,
                             ),
                             iconSize: 24,
                           )
