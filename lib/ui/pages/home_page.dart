@@ -10,18 +10,6 @@ class HomePage extends StatelessWidget {
 
   final controller = MainController();
 
-  var map = {
-    "id": 1,
-    "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-    "price": 109.95,
-    "description":
-        "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your every…",
-    "category": "men's clothing",
-    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-    "rate": 3.9,
-    "count": 120,
-  };
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -85,10 +73,36 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(context, '/details',
-                    arguments: ProductModel.fromMap(map)),
-                child: ProductItem(product: controller.products[0]),
+              const SizedBox(
+                height: 8.0,
+              ),
+              Expanded(
+                child: SizedBox(
+                  height: size.height * 0.225,
+                  child: ListView.separated(
+                    itemCount: controller.products.length,
+                    separatorBuilder: (context, index) {
+                      return const Divider(
+                        height: 2,
+                        thickness: 1,
+                        color: Color(0xFFF0F0F0),
+                      );
+                    },
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          '/details',
+                          arguments: controller.products[index],
+                        ),
+                        child: ProductItem(
+                          controller: controller,
+                          product: controller.products[index],
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ),
             ],
           );

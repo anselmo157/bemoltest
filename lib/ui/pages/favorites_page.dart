@@ -1,24 +1,18 @@
+import 'package:bemoltest/controller/main_controller.dart';
 import 'package:bemoltest/model/product_model.dart';
 import 'package:bemoltest/ui/widgets/product_item.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FavoritesPage extends StatelessWidget {
-  FavoritesPage({super.key});
-
-  var map = {
-    "id": 1,
-    "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-    "price": 109.95,
-    "description":
-        "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your every…",
-    "category": "men's clothing",
-    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-    "rate": 3.9,
-    "count": 120,
-  };
+  const FavoritesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    MainController controller = Provider.of<MainController>(context);
+
+    print(controller.products);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -37,13 +31,13 @@ class FavoritesPage extends StatelessWidget {
         ),
       ),
       body: Column(
-        children: [
-          ProductItem(
-            product: ProductModel.fromMap(map),
-            isFavoritePage: true,
+          // children: [
+          //   ProductItem(
+          //     product: controller.products[0],
+          //     isFavoritePage: true,
+          //   ),
+          // ],
           ),
-        ],
-      ),
     );
   }
 }

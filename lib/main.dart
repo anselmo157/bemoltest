@@ -1,11 +1,18 @@
+import 'package:bemoltest/controller/main_controller.dart';
 import 'package:bemoltest/model/product_model.dart';
 import 'package:bemoltest/ui/pages/details_page.dart';
 import 'package:bemoltest/ui/pages/favorites_page.dart';
 import 'package:bemoltest/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => MainController(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -26,10 +33,11 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomePage(),
         '/details': (context) {
-          final args = ModalRoute.of(context)?.settings.arguments as ProductModel;
+          final args =
+              ModalRoute.of(context)?.settings.arguments as ProductModel;
           return DetailsPage(product: args);
         },
-        '/favorites': (context) => FavoritesPage(),
+        '/favorites': (context) => const FavoritesPage(),
       },
     );
   }
