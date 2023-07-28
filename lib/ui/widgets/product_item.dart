@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProductItem extends StatelessWidget {
-  final MainController controller;
   final ProductModel product;
   final bool? isFavoritePage;
 
   const ProductItem({
-    required this.controller,
     required this.product,
     this.isFavoritePage,
     super.key,

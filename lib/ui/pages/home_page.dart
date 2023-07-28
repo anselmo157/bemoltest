@@ -27,7 +27,11 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              Navigator.pushNamed(context, '/favorites');
+              Navigator.pushNamed(
+                context,
+                '/favorites',
+                arguments: controller.productsFavorites,
+              );
             },
             icon: const Icon(Icons.favorite_outline, color: Colors.black),
             iconSize: 24,
@@ -96,7 +100,6 @@ class HomePage extends StatelessWidget {
                           arguments: controller.products[index],
                         ),
                         child: ProductItem(
-                          controller: controller,
                           product: controller.products[index],
                         ),
                       );

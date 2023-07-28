@@ -1,17 +1,18 @@
-import 'package:bemoltest/controller/main_controller.dart';
 import 'package:bemoltest/model/product_model.dart';
 import 'package:bemoltest/ui/widgets/product_item.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class FavoritesPage extends StatelessWidget {
-  const FavoritesPage({super.key});
+  final List<ProductModel> productsFavorites;
+
+  const FavoritesPage({
+    required this.productsFavorites,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    MainController controller = Provider.of<MainController>(context);
-
-    print(controller.products);
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -31,13 +32,40 @@ class FavoritesPage extends StatelessWidget {
         ),
       ),
       body: Column(
-          // children: [
-          //   ProductItem(
-          //     product: controller.products[0],
-          //     isFavoritePage: true,
-          //   ),
-          // ],
+        children: [
+          const SizedBox(
+            height: 8.0,
           ),
+          Expanded(
+            child: SizedBox(
+              height: size.height * 0.225,
+              child: ListView.separated(
+                itemCount: productsFavorites.length,
+                separatorBuilder: (context, index) {
+                  return const Divider(
+                    height: 2,
+                    thickness: 1,
+                    color: Color(0xFFF0F0F0),
+                  );
+                },
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      '/details',
+                      arguments: productsFavorites[index],
+                    ),
+                    child: ProductItem(
+                      product: productsFavorites[index],
+                      isFavoritePage: true,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

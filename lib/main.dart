@@ -37,7 +37,11 @@ class MyApp extends StatelessWidget {
               ModalRoute.of(context)?.settings.arguments as ProductModel;
           return DetailsPage(product: args);
         },
-        '/favorites': (context) => const FavoritesPage(),
+        '/favorites': (context) {
+          final args =
+              ModalRoute.of(context)?.settings.arguments as List<ProductModel>;
+          return FavoritesPage(productsFavorites: args);
+        },
       },
     );
   }
