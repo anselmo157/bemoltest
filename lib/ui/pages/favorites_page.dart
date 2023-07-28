@@ -31,41 +31,49 @@ class FavoritesPage extends StatelessWidget {
           color: Theme.of(context).primaryColor,
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 8.0,
-          ),
-          Expanded(
-            child: SizedBox(
-              height: size.height * 0.225,
-              child: ListView.separated(
-                itemCount: productsFavorites.length,
-                separatorBuilder: (context, index) {
-                  return const Divider(
-                    height: 2,
-                    thickness: 1,
-                    color: Color(0xFFF0F0F0),
-                  );
-                },
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      '/details',
-                      arguments: productsFavorites[index],
+      body: productsFavorites.isNotEmpty
+          ? Column(
+              children: [
+                const SizedBox(
+                  height: 8.0,
+                ),
+                Expanded(
+                  child: SizedBox(
+                    height: size.height * 0.225,
+                    child: ListView.separated(
+                      itemCount: productsFavorites.length,
+                      separatorBuilder: (context, index) {
+                        return const Divider(
+                          height: 2,
+                          thickness: 1,
+                          color: Color(0xFFF0F0F0),
+                        );
+                      },
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            '/details',
+                            arguments: productsFavorites[index],
+                          ),
+                          child: ProductItem(
+                            product: productsFavorites[index],
+                            isFavoritePage: true,
+                          ),
+                        );
+                      },
                     ),
-                    child: ProductItem(
-                      product: productsFavorites[index],
-                      isFavoritePage: true,
-                    ),
-                  );
-                },
+                  ),
+                ),
+              ],
+            )
+          : Center(
+              child: SizedBox(
+                width: size.width * 0.45,
+                height: size.height * 0.3,
+                child: Image.asset('assets/images/empty_list.png'),
               ),
             ),
-          ),
-        ],
-      ),
     );
   }
 }
