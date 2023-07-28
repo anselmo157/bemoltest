@@ -1,7 +1,9 @@
+import 'package:bemoltest/controllers/main_controller.dart';
 import 'package:bemoltest/model/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class DetailsPage extends StatelessWidget {
+class DetailsPage extends StatefulWidget {
   final ProductModel product;
 
   const DetailsPage({
@@ -10,7 +12,13 @@ class DetailsPage extends StatelessWidget {
   });
 
   @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  @override
   Widget build(BuildContext context) {
+    final controller = context.read<MainController>();
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -31,8 +39,17 @@ class DetailsPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () async {},
-            icon: const Icon(Icons.favorite_outline, color: Colors.black),
+            onPressed: () async {
+              setState(() {
+                controller.changeFavoriteProducts(widget.product);
+              });
+            },
+            icon: Icon(
+              Icons.favorite,
+              color: (controller.productsFavorites.contains(widget.product))
+                  ? Colors.red
+                  : Colors.grey,
+            ),
             iconSize: 24,
           ),
         ],
@@ -49,7 +66,7 @@ class DetailsPage extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 10.0),
                   child: ClipRRect(
                     child: Image.network(
-                      product.image,
+                      widget.product.image,
                       height: size.height * 0.41,
                       width: size.width * 0.8,
                       fit: BoxFit.contain,
@@ -59,7 +76,7 @@ class DetailsPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0),
                   child: Text(
-                    product.title,
+                    widget.product.title,
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 20,
@@ -79,7 +96,7 @@ class DetailsPage extends StatelessWidget {
                             color: Color(0xFFFFD700),
                           ),
                           Text(
-                            ' ${product.rate} (${product.count} reviews)',
+                            ' ${widget.product.rate} (${widget.product.count} reviews)',
                             style: TextStyle(
                               fontSize: 14,
                               color: Theme.of(context)
@@ -91,7 +108,7 @@ class DetailsPage extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        '\$${product.price}',
+                        '\$${widget.product.price}',
                         style: const TextStyle(
                           fontSize: 29,
                           color: Color(0xFF5EC401),
@@ -112,7 +129,7 @@ class DetailsPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: Text(
-                          product.category,
+                          widget.product.category,
                           style: const TextStyle(
                             fontSize: 16,
                             color: Color(0xFF3E3E3E),
@@ -126,7 +143,7 @@ class DetailsPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 26.0),
                   child: Text(
-                    product.description,
+                    widget.product.description,
                     style: const TextStyle(
                       fontSize: 16,
                       color: Color(0xFF3E3E3E),
