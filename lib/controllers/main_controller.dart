@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bemoltest/model/product_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -13,21 +15,55 @@ class MainController extends ChangeNotifier {
   final nameSearch = TextEditingController(text: '');
 
   Future<void> getProducts() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
     final response = await dio.get('https://fakestoreapi.com/products');
 
     products.clear();
+    productsFavorites.clear();
 
     for (int i = 0; i < response.data.length; i++) {
-      products.add(ProductModel.fromMap(response.data[i]));
+      products.add(ProductModel.fromMap(response.data[i], false));
     }
+
+    final List<String>? favoritesJson =
+        sharedPreferences.getStringList('favoritesJson');
+
+    if (favoritesJson != null) {
+      for (int i = 0; i < favoritesJson.length; i++) {
+        var aux = jsonDecode(favoritesJson[i]);
+        productsFavorites.add(ProductModel.fromMap(aux, true));
+      }
+      print(productsFavorites);
+    }
+
+    notifyListeners();
   }
 
   Future<void> changeFavoriteProducts(ProductModel product) async {
-    if (!productsFavorites.contains(product)) {
-      productsFavorites.add(product);
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    final List<String>? favoritesJson =
+        sharedPreferences.getStringList('favoritesJson');
+
+    if (favoritesJson != null) {
+      if (!productsFavorites.contains(product)) {
+        productsFavorites.add(product);
+        favoritesJson.add(jsonEncode(product.toMap()));
+        sharedPreferences.setStringList('favoritesJson', favoritesJson);
+      } else {
+        productsFavorites.remove(product);
+        favoritesJson.remove(jsonEncode(product.toMap()));
+        sharedPreferences.setStringList('favoritesJson', favoritesJson);
+      }
     } else {
-      productsFavorites.remove(product);
+      productsFavorites.add(product);
+      sharedPreferences.setStringList(
+        'favoritesJson',
+        [jsonEncode(product.toMap())],
+      );
     }
+
     notifyListeners();
   }
 
