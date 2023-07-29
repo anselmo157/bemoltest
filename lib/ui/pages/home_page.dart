@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({super.key});
-
-  final nameSearch = TextEditingController(text: '');
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +54,7 @@ class HomePage extends StatelessWidget {
                   ),
                   width: size.width * 0.9,
                   child: TextFormField(
-                    controller: nameSearch,
+                    controller: controller.nameSearch,
                     textAlignVertical: TextAlignVertical.center,
                     decoration: InputDecoration(
                       hintText: 'Search Anything',
@@ -72,7 +70,9 @@ class HomePage extends StatelessWidget {
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
-                    onChanged: (String text) {},
+                    onChanged: (String text) {
+                      controller.search();
+                    },
                   ),
                 ),
               ),
@@ -83,7 +83,9 @@ class HomePage extends StatelessWidget {
                 child: SizedBox(
                   height: size.height * 0.225,
                   child: ListView.separated(
-                    itemCount: controller.products.length,
+                    itemCount: controller.nameSearch.text != ''
+                        ? controller.productsSearch.length
+                        : controller.products.length,
                     separatorBuilder: (context, index) {
                       return const Divider(
                         height: 2,
@@ -99,7 +101,9 @@ class HomePage extends StatelessWidget {
                           arguments: controller.products[index],
                         ),
                         child: ProductItem(
-                          product: controller.products[index],
+                          product: controller.nameSearch.text != ''
+                              ? controller.productsSearch[index]
+                              : controller.products[index],
                         ),
                       );
                     },

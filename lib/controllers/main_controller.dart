@@ -8,12 +8,15 @@ class MainController extends ChangeNotifier {
 
   List<ProductModel> products = [];
   List<ProductModel> productsFavorites = [];
+  List<ProductModel> productsSearch = [];
+
+  final nameSearch = TextEditingController(text: '');
 
   Future<void> getProducts() async {
     final response = await dio.get('https://fakestoreapi.com/products');
 
     products.clear();
-    
+
     for (int i = 0; i < response.data.length; i++) {
       products.add(ProductModel.fromMap(response.data[i]));
     }
@@ -24,6 +27,19 @@ class MainController extends ChangeNotifier {
       productsFavorites.add(product);
     } else {
       productsFavorites.remove(product);
+    }
+    notifyListeners();
+  }
+
+  void search() {
+    productsSearch.clear();
+    for (int i = 0; i < products.length; i++) {
+      if (products[i]
+          .title
+          .toLowerCase()
+          .contains(nameSearch.text.toLowerCase())) {
+        productsSearch.add(products[i]);
+      }
     }
     notifyListeners();
   }
